@@ -1,1 +1,51 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expense Tracker docs</title>
+<meta name="description" content="How the Personal Expense Tracker sample works: a PostgreSQL database, a Flask API and a single-page frontend.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<!-- This one file is the whole site shell. Each page is a Markdown file next to it
+     (index.md, database.md, api.md, frontend.md, about.md), fetched and rendered by assets/site.js.
+     To add a page, add its .md file and a link with data-page below. -->
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">$</span> Expense Tracker</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="./" data-page="index">Overview</a>
+      <a href="?page=database" data-page="database">Database</a>
+      <a href="?page=api" data-page="api">API</a>
+      <a href="?page=frontend" data-page="frontend">Frontend</a>
+      <a href="?page=about" data-page="about">About me</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    <ul></ul>
+  </aside>
+
+  <main id="content">
+    <p class="status-message">Loading…</p>
+    <noscript>
+      <p>This site needs JavaScript to display its pages. The pages are also readable as plain Markdown:
+        <a href="index.md">Overview</a>, <a href="database.md">Database</a>,
+        <a href="api.md">API</a>, <a href="frontend.md">Frontend</a>, <a href="about.md">About me</a>.</p>
+    </noscript>
+  </main>
+</div>
+
+<footer class="site-footer">Expense Tracker documentation.</footer>
+
+<script src="assets/vendor/marked.min.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
