@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 792 507" width="792" height="507" role="img">
+  <style>
+    svg {
+      --surface: #ffffff; --sunken: #f0f2f6; --text: #1c2330; --muted: #5b6577;
+      --border: #dfe3ea; --border-strong: #b9c1ce; --accent: #2f6fed; --accent-soft: #e8f0fe;
+      --danger: #c93434; --danger-soft: #fdecec; --success: #1c7c45; --success-soft: #e4f4ea;
+      --sans: Arial, Helvetica, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg {
+        --surface: #1d2128; --sunken: #0f1216; --text: #e7eaf0; --muted: #98a2b3;
+        --border: #313742; --border-strong: #4a5261; --accent: #6f9cf7; --accent-soft: #1c2a47;
+        --danger: #f07070; --danger-soft: #3a1f22; --success: #5ec48a; --success-soft: #17301f;
+      }
+    }
+    .canvas { fill: var(--surface); }
+    text { fill: var(--text); font-family: var(--sans); font-size: 13px; }
+    .t-title { font-weight: 650; }
+    .t-sub { fill: var(--muted); font-size: 12px; }
+    .t-mono { font-family: var(--mono); font-size: 12px; }
+    .t-key { font-family: var(--mono); font-size: 11px; font-weight: 700; fill: var(--accent); }
+    .t-bad { fill: var(--danger); font-weight: 700; font-family: var(--mono); }
+    .t-good { fill: var(--success); font-weight: 700; font-family: var(--mono); }
+    .t-get { fill: var(--accent); font-weight: 700; }
+    .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+    .box-fill { fill: var(--sunken); stroke: var(--border); stroke-width: 1; }
+    .box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+    .box-bad { fill: var(--danger-soft); stroke: var(--danger); stroke-width: 1.2; }
+    .box-good { fill: var(--success-soft); stroke: var(--success); stroke-width: 1.5; }
+    .group { fill: none; stroke: var(--border-strong); stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .line { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+    .rule { stroke: var(--border); stroke-width: 1; }
+    .dashed { stroke-dasharray: 5 4; }
+    .head { fill: var(--muted); }
+    .bg { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+  </style>
+  <rect class="canvas" x="-16" y="-16" width="792" height="507"/>
+
+    <title>Login, an authenticated request, and logout</title>
+    <desc>The client posts a username and password to /login. The API checks them against the values in .env and answers 200 with a session cookie. The client then requests /expenses with the cookie; the API queries PostgreSQL and returns the rows as JSON. The client posts to /logout and the session is cleared. A further request to /expenses without a session gets 401 login required.</desc>
+    <defs>
+      <marker id="seq-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker>
+    </defs>
+
+    <path class="line dashed" d="M110,46 V462 M380,46 V462 M650,46 V462"/>
+    <rect class="box" x="40" y="10" width="140" height="36" rx="8"/>
+    <text class="t-title" x="110" y="33" text-anchor="middle">Client</text>
+    <rect class="box-accent" x="310" y="10" width="140" height="36" rx="8"/>
+    <text class="t-title" x="380" y="33" text-anchor="middle">Flask API</text>
+    <rect class="box" x="580" y="10" width="140" height="36" rx="8"/>
+    <text class="t-title" x="650" y="33" text-anchor="middle">PostgreSQL</text>
+
+    <path class="line" d="M110,80 H378" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="73" text-anchor="middle">POST /login {username, password}</text>
+
+    <path class="line" d="M380,100 H410 V122 H383" marker-end="url(#seq-arrow)"/>
+    <text class="t-sub" x="420" y="115">check against the .env credentials</text>
+
+    <path class="line dashed" d="M380,156 H112" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="149" text-anchor="middle">200 + session cookie</text>
+
+    <path class="line" d="M110,200 H378" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="193" text-anchor="middle">GET /expenses (cookie)</text>
+    <path class="line" d="M380,232 H648" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="515" y="225" text-anchor="middle">SELECT …</text>
+    <path class="line dashed" d="M650,264 H382" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="515" y="257" text-anchor="middle">rows</text>
+    <path class="line dashed" d="M380,296 H112" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="289" text-anchor="middle">200 JSON</text>
+
+    <path class="line" d="M110,340 H378" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="333" text-anchor="middle">POST /logout (cookie)</text>
+    <path class="line dashed" d="M380,372 H112" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="365" text-anchor="middle">200, session cleared</text>
+
+    <path class="line" d="M110,416 H378" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="409" text-anchor="middle">GET /expenses</text>
+    <path class="line dashed" d="M380,448 H112" marker-end="url(#seq-arrow)"/>
+    <text class="t-mono" x="245" y="441" text-anchor="middle">401 login required</text>
+</svg>

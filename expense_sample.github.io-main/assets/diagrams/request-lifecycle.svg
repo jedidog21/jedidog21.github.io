@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 792 572" width="792" height="572" role="img">
+  <style>
+    svg {
+      --surface: #ffffff; --sunken: #f0f2f6; --text: #1c2330; --muted: #5b6577;
+      --border: #dfe3ea; --border-strong: #b9c1ce; --accent: #2f6fed; --accent-soft: #e8f0fe;
+      --danger: #c93434; --danger-soft: #fdecec; --success: #1c7c45; --success-soft: #e4f4ea;
+      --sans: Arial, Helvetica, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg {
+        --surface: #1d2128; --sunken: #0f1216; --text: #e7eaf0; --muted: #98a2b3;
+        --border: #313742; --border-strong: #4a5261; --accent: #6f9cf7; --accent-soft: #1c2a47;
+        --danger: #f07070; --danger-soft: #3a1f22; --success: #5ec48a; --success-soft: #17301f;
+      }
+    }
+    .canvas { fill: var(--surface); }
+    text { fill: var(--text); font-family: var(--sans); font-size: 13px; }
+    .t-title { font-weight: 650; }
+    .t-sub { fill: var(--muted); font-size: 12px; }
+    .t-mono { font-family: var(--mono); font-size: 12px; }
+    .t-key { font-family: var(--mono); font-size: 11px; font-weight: 700; fill: var(--accent); }
+    .t-bad { fill: var(--danger); font-weight: 700; font-family: var(--mono); }
+    .t-good { fill: var(--success); font-weight: 700; font-family: var(--mono); }
+    .t-get { fill: var(--accent); font-weight: 700; }
+    .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+    .box-fill { fill: var(--sunken); stroke: var(--border); stroke-width: 1; }
+    .box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+    .box-bad { fill: var(--danger-soft); stroke: var(--danger); stroke-width: 1.2; }
+    .box-good { fill: var(--success-soft); stroke: var(--success); stroke-width: 1.5; }
+    .group { fill: none; stroke: var(--border-strong); stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .line { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+    .rule { stroke: var(--border); stroke-width: 1; }
+    .dashed { stroke-dasharray: 5 4; }
+    .head { fill: var(--muted); }
+    .bg { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+  </style>
+  <rect class="canvas" x="-16" y="-16" width="792" height="572"/>
+
+    <title>The path of a request and the error each step can produce</title>
+    <desc>A request passes through five steps. The session check fails with 401 login required. The input check fails with 400 for a missing field or query parameter. Running the SQL fails with 503 database unavailable if PostgreSQL cannot be reached. PostgreSQL constraints fail with 409 already exists for a duplicate name, or 400 with the database's own message for other violations. Building the response fails with 404 expense not found when a DELETE matches no row. Otherwise the result is 200, 201 or 204.</desc>
+    <defs>
+      <marker id="life-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker>
+    </defs>
+
+    <rect class="box" x="110" y="16" width="160" height="32" rx="16"/>
+    <text class="t-title" x="190" y="37" text-anchor="middle">Request arrives</text>
+    <path class="line" d="M190,48 V78" marker-end="url(#life-arrow)"/>
+
+    <rect class="box-accent" x="30" y="80" width="320" height="48" rx="8"/>
+    <text class="t-title" x="190" y="101" text-anchor="middle">1 · Session check</text>
+    <text class="t-sub" x="190" y="118" text-anchor="middle">@login_required looks for the session cookie</text>
+    <path class="line" d="M190,128 V158" marker-end="url(#life-arrow)"/>
+
+    <rect class="box-accent" x="30" y="160" width="320" height="48" rx="8"/>
+    <text class="t-title" x="190" y="181" text-anchor="middle">2 · Input check</text>
+    <text class="t-sub" x="190" y="198" text-anchor="middle">required JSON fields or query parameters</text>
+    <path class="line" d="M190,208 V238" marker-end="url(#life-arrow)"/>
+
+    <rect class="box-accent" x="30" y="240" width="320" height="48" rx="8"/>
+    <text class="t-title" x="190" y="261" text-anchor="middle">3 · run(sql, params)</text>
+    <text class="t-sub" x="190" y="278" text-anchor="middle">connect, execute one parameterized statement</text>
+    <path class="line" d="M190,288 V318" marker-end="url(#life-arrow)"/>
+
+    <rect class="box" x="30" y="320" width="320" height="48" rx="8"/>
+    <text class="t-title" x="190" y="341" text-anchor="middle">4 · PostgreSQL constraints</text>
+    <text class="t-sub" x="190" y="358" text-anchor="middle">UNIQUE, FOREIGN KEY, CHECK, column types</text>
+    <path class="line" d="M190,368 V408" marker-end="url(#life-arrow)"/>
+
+    <rect class="box-accent" x="30" y="410" width="320" height="48" rx="8"/>
+    <text class="t-title" x="190" y="431" text-anchor="middle">5 · Build the response</text>
+    <text class="t-sub" x="190" y="448" text-anchor="middle">rows to JSON; DELETE checks the row count</text>
+    <path class="line" d="M190,458 V488" marker-end="url(#life-arrow)"/>
+
+    <rect class="box-good" x="90" y="490" width="200" height="36" rx="18"/>
+    <text class="t-good" x="190" y="513" text-anchor="middle">200 · 201 · 204</text>
+
+    <path class="line" d="M350,104 H448" marker-end="url(#life-arrow)"/>
+    <rect class="box-bad" x="450" y="89" width="290" height="30" rx="6"/>
+    <text class="t-bad" x="464" y="109">401</text>
+    <text class="t-sub" x="502" y="109">login required</text>
+
+    <path class="line" d="M350,184 H448" marker-end="url(#life-arrow)"/>
+    <rect class="box-bad" x="450" y="169" width="290" height="30" rx="6"/>
+    <text class="t-bad" x="464" y="189">400</text>
+    <text class="t-sub" x="502" y="189">missing field or query parameter</text>
+
+    <path class="line" d="M350,264 H448" marker-end="url(#life-arrow)"/>
+    <rect class="box-bad" x="450" y="249" width="290" height="30" rx="6"/>
+    <text class="t-bad" x="464" y="269">503</text>
+    <text class="t-sub" x="502" y="269">database unavailable</text>
+
+    <path class="line" d="M350,344 H400 V325 H448" marker-end="url(#life-arrow)"/>
+    <path class="line" d="M400,344 V363 H448" marker-end="url(#life-arrow)"/>
+    <rect class="box-bad" x="450" y="310" width="290" height="30" rx="6"/>
+    <text class="t-bad" x="464" y="330">409</text>
+    <text class="t-sub" x="502" y="330">already exists (duplicate name)</text>
+    <rect class="box-bad" x="450" y="348" width="290" height="30" rx="6"/>
+    <text class="t-bad" x="464" y="368">400</text>
+    <text class="t-sub" x="502" y="368">the database's own message</text>
+
+    <path class="line" d="M350,434 H448" marker-end="url(#life-arrow)"/>
+    <rect class="box-bad" x="450" y="419" width="290" height="30" rx="6"/>
+    <text class="t-bad" x="464" y="439">404</text>
+    <text class="t-sub" x="502" y="439">expense not found (DELETE only)</text>
+</svg>

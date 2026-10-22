@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 912 332" width="912" height="332" role="img">
+  <style>
+    svg {
+      --surface: #ffffff; --sunken: #f0f2f6; --text: #1c2330; --muted: #5b6577;
+      --border: #dfe3ea; --border-strong: #b9c1ce; --accent: #2f6fed; --accent-soft: #e8f0fe;
+      --danger: #c93434; --danger-soft: #fdecec; --success: #1c7c45; --success-soft: #e4f4ea;
+      --sans: Arial, Helvetica, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg {
+        --surface: #1d2128; --sunken: #0f1216; --text: #e7eaf0; --muted: #98a2b3;
+        --border: #313742; --border-strong: #4a5261; --accent: #6f9cf7; --accent-soft: #1c2a47;
+        --danger: #f07070; --danger-soft: #3a1f22; --success: #5ec48a; --success-soft: #17301f;
+      }
+    }
+    .canvas { fill: var(--surface); }
+    text { fill: var(--text); font-family: var(--sans); font-size: 13px; }
+    .t-title { font-weight: 650; }
+    .t-sub { fill: var(--muted); font-size: 12px; }
+    .t-mono { font-family: var(--mono); font-size: 12px; }
+    .t-key { font-family: var(--mono); font-size: 11px; font-weight: 700; fill: var(--accent); }
+    .t-bad { fill: var(--danger); font-weight: 700; font-family: var(--mono); }
+    .t-good { fill: var(--success); font-weight: 700; font-family: var(--mono); }
+    .t-get { fill: var(--accent); font-weight: 700; }
+    .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+    .box-fill { fill: var(--sunken); stroke: var(--border); stroke-width: 1; }
+    .box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+    .box-bad { fill: var(--danger-soft); stroke: var(--danger); stroke-width: 1.2; }
+    .box-good { fill: var(--success-soft); stroke: var(--success); stroke-width: 1.5; }
+    .group { fill: none; stroke: var(--border-strong); stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .line { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+    .rule { stroke: var(--border); stroke-width: 1; }
+    .dashed { stroke-dasharray: 5 4; }
+    .head { fill: var(--muted); }
+    .bg { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+  </style>
+  <rect class="canvas" x="-16" y="-16" width="912" height="332"/>
+
+    <title>System architecture</title>
+    <desc>A browser sends JSON over HTTP to the Flask API. Inside the API, Flask-Login checks the session cookie and passes the request to a route handler, which runs parameterized SQL against PostgreSQL. The API reads its settings from API/.env at startup.</desc>
+    <defs>
+      <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker>
+    </defs>
+
+    <rect class="box" x="20" y="46" width="170" height="80" rx="8"/>
+    <text class="t-title" x="105" y="76" text-anchor="middle">Browser</text>
+    <text class="t-mono" x="105" y="95" text-anchor="middle">frontend/index.html</text>
+    <text class="t-sub" x="105" y="112" text-anchor="middle">or any HTTP client</text>
+
+    <rect class="group" x="310" y="24" width="260" height="180" rx="10"/>
+    <text class="t-sub" x="324" y="46"><tspan class="t-mono">API/app.py</tspan> · Flask</text>
+    <rect class="box-accent" x="330" y="62" width="220" height="48" rx="8"/>
+    <text class="t-title" x="440" y="83" text-anchor="middle">Flask-Login</text>
+    <text class="t-sub" x="440" y="100" text-anchor="middle">checks the session cookie</text>
+    <rect class="box-accent" x="330" y="134" width="220" height="48" rx="8"/>
+    <text class="t-title" x="440" y="155" text-anchor="middle">Route handlers</text>
+    <text class="t-sub" x="440" y="172" text-anchor="middle">one per use case</text>
+
+    <path class="box" d="M700,112 V190 A80,14 0 0 0 860,190 V112"/>
+    <ellipse class="box" cx="780" cy="112" rx="80" ry="14"/>
+    <text class="t-title" x="780" y="154" text-anchor="middle">PostgreSQL</text>
+    <text class="t-mono" x="780" y="173" text-anchor="middle">categories, expenses</text>
+
+    <rect class="box" x="330" y="240" width="220" height="48" rx="8"/>
+    <text class="t-title t-mono" x="440" y="261" text-anchor="middle">API/.env</text>
+    <text class="t-sub" x="440" y="278" text-anchor="middle">secrets and connection settings</text>
+
+    <path class="line" d="M190,86 H328" marker-end="url(#arch-arrow)"/>
+    <text class="t-sub" x="250" y="78" text-anchor="middle">JSON over HTTP</text>
+    <path class="line" d="M440,110 V132" marker-end="url(#arch-arrow)"/>
+    <path class="line" d="M550,158 H698" marker-end="url(#arch-arrow)"/>
+    <text class="t-sub" x="624" y="150" text-anchor="middle">parameterized SQL</text>
+    <text class="t-sub" x="624" y="175" text-anchor="middle">via psycopg</text>
+    <path class="line dashed" d="M440,240 V206" marker-end="url(#arch-arrow)"/>
+    <text class="t-sub" x="452" y="227">loaded at startup</text>
+</svg>
